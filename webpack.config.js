@@ -19,17 +19,26 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader"]
+                use: ["my-style-loader", "my-css-loader"]
             },
             {
                 test: /\.less$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "less-loader"]
+                use: ["my-style-loader", "my-css-loader", "my-less-loader"]
             },
             {
                 test: /\.js$/,
-                use: path.resolve(__dirname, "./myLoaders/replace-loader")
+                use: ["replace-loader", {
+                    loader: "replace-loader-async",
+                    options: {
+                        origin: 'ho',
+                        replaced: "fun"
+                    }
+                }]
             }
         ]
+    },
+    resolveLoader: {
+        modules: ['./node_modules', './myLoaders', './myLoaders/less']
     },
     plugins: [
         // new htmlWebpackPlugin({
