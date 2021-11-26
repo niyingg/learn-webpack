@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -8,7 +9,7 @@ module.exports = {
   mode: "development",
   output: {
     path: path.resolve(__dirname, "./dist"),
-    filename: "[name]-[chunkhash:6].js",
+    filename: "[name]-[hash:6].js",
   },
   module: {
     rules: [
@@ -56,6 +57,7 @@ module.exports = {
         target: "http://localhost:8083/",
       },
     },
+    hot: true,
   },
   resolveLoader: {
     modules: ["./node_modules", "./myLoaders"],
@@ -67,9 +69,10 @@ module.exports = {
       chunks: ["main"],
     }),
     new CleanWebpackPlugin(),
-    new miniCssExtractPlugin({
-      filename: "css/index-[contenthash:6].css",
-    }),
+    // new miniCssExtractPlugin({
+    //   filename: "css/index-[hash:6].css",
+    // }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
   devtool: "inline-source-map",
 };

@@ -1,0 +1,7 @@
+#app div:nth-of-type(2n) {
+  background-color: rgb(198, 223, 61);
+}
+
+#app div:nth-of-type(2n + 1) {
+  background-color: rgb(95, 10, 70);
+}
